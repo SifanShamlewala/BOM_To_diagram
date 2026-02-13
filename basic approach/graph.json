@@ -1,0 +1,136 @@
+{
+  "nodes": [
+    {
+      "id": "ROOT",
+      "label": "ROOT"
+    },
+    {
+      "id": "Seat",
+      "label": "Seat"
+    },
+    {
+      "id": "Frame",
+      "label": "Frame"
+    },
+    {
+      "id": "Handle Bars",
+      "label": "Handle Bars"
+    },
+    {
+      "id": "Brakes",
+      "label": "Brakes"
+    },
+    {
+      "id": "Wheels",
+      "label": "Wheels"
+    },
+    {
+      "id": "Rim",
+      "label": "Rim"
+    },
+    {
+      "id": "Spokes",
+      "label": "Spokes"
+    },
+    {
+      "id": "Tires",
+      "label": "Tires"
+    },
+    {
+      "id": "Pedal Assembly",
+      "label": "Pedal Assembly"
+    },
+    {
+      "id": "Foot Rest",
+      "label": "Foot Rest"
+    },
+    {
+      "id": "Sprocklet",
+      "label": "Sprocklet"
+    },
+    {
+      "id": "Axle Assembly",
+      "label": "Axle Assembly"
+    },
+    {
+      "id": "Chain",
+      "label": "Chain"
+    },
+    {
+      "id": "Gear Assembly",
+      "label": "Gear Assembly"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ROOT",
+      "to": "Seat",
+      "type": "contains"
+    },
+    {
+      "from": "ROOT",
+      "to": "Frame",
+      "type": "contains"
+    },
+    {
+      "from": "ROOT",
+      "to": "Handle Bars",
+      "type": "contains"
+    },
+    {
+      "from": "ROOT",
+      "to": "Brakes",
+      "type": "contains"
+    },
+    {
+      "from": "ROOT",
+      "to": "Wheels",
+      "type": "contains"
+    },
+    {
+      "from": "Wheels",
+      "to": "Rim",
+      "type": "contains"
+    },
+    {
+      "from": "Wheels",
+      "to": "Spokes",
+      "type": "contains"
+    },
+    {
+      "from": "Wheels",
+      "to": "Tires",
+      "type": "contains"
+    },
+    {
+      "from": "ROOT",
+      "to": "Pedal Assembly",
+      "type": "contains"
+    },
+    {
+      "from": "Pedal Assembly",
+      "to": "Foot Rest",
+      "type": "contains"
+    },
+    {
+      "from": "Pedal Assembly",
+      "to": "Sprocklet",
+      "type": "contains"
+    },
+    {
+      "from": "Pedal Assembly",
+      "to": "Axle Assembly",
+      "type": "contains"
+    },
+    {
+      "from": "Pedal Assembly",
+      "to": "Chain",
+      "type": "contains"
+    },
+    {
+      "from": "Pedal Assembly",
+      "to": "Gear Assembly",
+      "type": "contains"
+    }
+  ]
+}

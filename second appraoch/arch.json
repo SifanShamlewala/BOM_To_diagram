@@ -1,0 +1,56 @@
+{
+  "rooms": [
+    {
+      "id": "pdc_room",
+      "name": "PDC ROOM",
+      "enclosures": ["server_cab_1", "io_cab_1"]
+    },
+    {
+      "id": "operator_room",
+      "name": "OPERATOR ROOM",
+      "enclosures": ["operator_ws_1"]
+    }
+  ],
+
+  "enclosures": [
+    {
+      "id": "server_cab_1",
+      "type": "server_cabinet",
+      "name": "Server Cabinet",
+      "devices": ["ews", "ups", "pin_switch", "dcs_switch"]
+    },
+    {
+      "id": "io_cab_1",
+      "type": "io_cabinet",
+      "name": "I/O Cabinet #1",
+      "devices": ["io_rack_1"]
+    },
+    {
+      "id": "operator_ws_1",
+      "type": "operator_workstation",
+      "name": "OWS Desk",
+      "devices": ["ows_pc", "monitor_1", "monitor_2", "printer"]
+    }
+  ],
+
+  "devices": [
+    {"id": "ews", "type": "server", "name": "EWS/ProPlus"},
+    {"id": "ups", "type": "ups", "name": "UPS"},
+    {"id": "pin_switch", "type": "switch", "name": "PIN Switch"},
+    {"id": "dcs_switch", "type": "switch", "name": "Red. DCS Switch"},
+
+    {"id": "ows_pc", "type": "workstation", "name": "OWS"},
+    {"id": "monitor_1", "type": "monitor", "name": "Monitor 1"},
+    {"id": "monitor_2", "type": "monitor", "name": "Monitor 2"},
+    {"id": "printer", "type": "printer", "name": "Printer"}
+  ],
+
+  "links": [
+    {
+      "from": "dcs_switch",
+      "to": "ows_pc",
+      "medium": "fiber",
+      "style": "fopp"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "nodes": [
+    {"id": "string", "label": "string"}
+  ],
+  "edges": [
+    {"from": "string", "to": "string", "type": "contains"}
+  ]
+}
