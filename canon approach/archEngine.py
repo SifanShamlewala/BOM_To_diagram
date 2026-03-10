@@ -229,36 +229,39 @@ class ArchitectureEngine:
 # Test harness
 # ─────────────────────────────────────────────
 
-SEMANTIC_JSON = {
-    "rooms": [
-        {
-            "room_type": "OTHER",
-            "CNTR": {"quantity": 1, "redundant": True},
-            "CHARM": {"baseplates": 31},
-            "FOPP": {"quantity": 1},
-            "ENC_COMP": [
-                {"part_name": "DeltaV Rack Workstation", "quantity": 1},
-                {"part_name": "DeltaV Smart Switch", "quantity": 1},
-                {"part_name": "19 inch Sliding Screen", "quantity": 1},
-                {"part_name": "APC UPS", "quantity": 1},
-                {"part_name": "Hirschmann Industrial Switch", "quantity": 1}
-            ]
-        },
-        {
-            "room_type": "OPERATOR",
-            "CNTR": {"quantity": 0, "redundant": False},
-            "CHARM": {"baseplates": 0},
-            "FOPP": {"quantity": 1},
-            "ENC_COMP": [
-                {"part_name": "DeltaV Full-sized Tower Workstation", "quantity": 1},
-                {"part_name": "24-inch Monitor", "quantity": 1},
-                {"part_name": "Printer", "quantity": 1}
-            ]
-        }
-    ]
-}
-
-if __name__ == "__main__":
-    engine = ArchitectureEngine()
-    architecture = engine.build(SEMANTIC_JSON)
-    print(json.dumps(architecture, indent=2))
+# SEMANTIC_JSON = {
+#     "rooms": [
+#         {
+#             "room_type": "OTHER",
+#             "CNTR": {"quantity": 1, "redundant": True},
+#             "CHARM": {"baseplates": 31},
+#             "FOPP": {"quantity": 1},
+#             "ENC_COMP": [
+#                 {"part_name": "DeltaV Rack Workstation", "quantity": 1},
+#                 {"part_name": "DeltaV Smart Switch", "quantity": 1},
+#                 {"part_name": "19 inch Sliding Screen", "quantity": 1},
+#                 {"part_name": "APC UPS", "quantity": 1},
+#                 {"part_name": "Hirschmann Industrial Switch", "quantity": 1}
+#             ]
+#         },
+#         {
+#             "room_type": "OPERATOR",
+#             "CNTR": {"quantity": 0, "redundant": False},
+#             "CHARM": {"baseplates": 0},
+#             "FOPP": {"quantity": 1},
+#             "ENC_COMP": [
+#                 {"part_name": "DeltaV Full-sized Tower Workstation", "quantity": 1},
+#                 {"part_name": "24-inch Monitor", "quantity": 1},
+#                 {"part_name": "Printer", "quantity": 1}
+#             ]
+#         }
+#     ]
+# }
+# with open('handmade_demo.json', 'r') as file:
+#     SEMANTIC_JSON = json.load(file)
+# if __name__ == "__main__":
+#     engine = ArchitectureEngine()
+#     architecture = engine.build(SEMANTIC_JSON)
+#     print(type(architecture), type(SEMANTIC_JSON))
+#     print (json.dumps(SEMANTIC_JSON, indent=2))
+#     print(json.dumps(architecture, indent=2))

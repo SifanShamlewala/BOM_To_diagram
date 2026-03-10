@@ -544,70 +544,70 @@ class PptRenderer:
 # ─────────────────────────────────────────────
 # Test harness
 # ─────────────────────────────────────────────
+#
+# LAYOUT_JSON = {
+#   "elements": [
+#     {"id":"SRV-01","element_type":"CABINET","cabinet_type":"SERVER","room_type":"OTHER","room_index":0,"row":0,"col":0,"col_span":1},
+#     {"id":"CNTR-PRI","element_type":"DEVICE","device_type":"CNTR","room_index":0,"parent":"SRV-01","stack_index":0},
+#     {"id":"CNTR-SEC","element_type":"DEVICE","device_type":"CNTR","room_index":0,"parent":"SRV-01","stack_index":1},
+#     {"id":"ENC-DELTAV_RACK_WORKSTATION-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":2},
+#     {"id":"ENC-DELTAV_SMART_SWITCH-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":3},
+#     {"id":"ENC-19_INCH_SLIDING_SCREEN-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":4},
+#     {"id":"ENC-APC_UPS-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":5},
+#     {"id":"ENC-HIRSCHMANN_INDUSTRIAL_SWITCH-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":6},
+#     {"id":"IO-01","element_type":"CABINET","cabinet_type":"IO","room_type":"OTHER","room_index":0,"row":0,"col":1,"col_span":3},
+#     {"id":"CIOC-01","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":0},
+#     {"id":"CHARM-BP-01","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":1},
+#     {"id":"CHARM-BP-02","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":2},
+#     {"id":"CHARM-BP-03","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":3},
+#     {"id":"CHARM-BP-04","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":4},
+#     {"id":"CHARM-BP-05","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":5},
+#     {"id":"CHARM-BP-06","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":6},
+#     {"id":"CHARM-BP-07","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":7},
+#     {"id":"CHARM-BP-08","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":8},
+#     {"id":"CIOC-02","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":0},
+#     {"id":"CHARM-BP-09","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":1},
+#     {"id":"CHARM-BP-10","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":2},
+#     {"id":"CHARM-BP-11","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":3},
+#     {"id":"CHARM-BP-12","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":4},
+#     {"id":"CHARM-BP-13","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":5},
+#     {"id":"CHARM-BP-14","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":6},
+#     {"id":"CHARM-BP-15","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":7},
+#     {"id":"CHARM-BP-16","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":8},
+#     {"id":"CIOC-03","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":0},
+#     {"id":"CHARM-BP-17","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":1},
+#     {"id":"CHARM-BP-18","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":2},
+#     {"id":"CHARM-BP-19","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":3},
+#     {"id":"CHARM-BP-20","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":4},
+#     {"id":"CHARM-BP-21","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":5},
+#     {"id":"CHARM-BP-22","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":6},
+#     {"id":"CHARM-BP-23","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":7},
+#     {"id":"CHARM-BP-24","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":8},
+#     {"id":"IO-02","element_type":"CABINET","cabinet_type":"IO","room_type":"OTHER","room_index":0,"row":0,"col":4,"col_span":1},
+#     {"id":"CIOC-04","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":0},
+#     {"id":"CHARM-BP-25","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":1},
+#     {"id":"CHARM-BP-26","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":2},
+#     {"id":"CHARM-BP-27","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":3},
+#     {"id":"CHARM-BP-28","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":4},
+#     {"id":"CHARM-BP-29","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":5},
+#     {"id":"CHARM-BP-30","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":6},
+#     {"id":"CHARM-BP-31","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":7},
+#     {"id":"FOPP-OTHER-01","element_type":"FOPP","device_type":"FOPP","room_type":"OTHER","room_index":0,"row":1,"col":4},
+#     {"id":"WD-01","element_type":"CABINET","cabinet_type":"WORKDESK","room_type":"OPERATOR","room_index":1,"row":0,"col":0,"col_span":1},
+#     {"id":"WD-DELTAV_FULL-SIZED_TOWER_WORKSTATION-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":1,"parent":"WD-01","stack_index":0},
+#     {"id":"WD-24-INCH_MONITOR-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":1,"parent":"WD-01","stack_index":1},
+#     {"id":"WD-PRINTER-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":1,"parent":"WD-01","stack_index":2},
+#     {"id":"FOPP-OPR-01","element_type":"FOPP","device_type":"FOPP","room_type":"OPERATOR","room_index":1,"row":1,"col":0}
+#   ],
+#   "connections": [
+#     {"from":"FOPP-OTHER-01","to":"SRV-01","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
+#     {"from":"FOPP-OTHER-01","to":"IO-01","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
+#     {"from":"FOPP-OTHER-01","to":"IO-02","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
+#     {"from":"FOPP-OPR-01","to":"WD-01","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
+#     {"from":"FOPP-OTHER-01","to":"FOPP-OPR-01","link_type":"INTER_ROOM_FIBER","scope":"INTER_ROOM"}
+#   ]
+# }
 
-LAYOUT_JSON = {
-  "elements": [
-    {"id":"SRV-01","element_type":"CABINET","cabinet_type":"SERVER","room_type":"OTHER","room_index":0,"row":0,"col":0,"col_span":1},
-    {"id":"CNTR-PRI","element_type":"DEVICE","device_type":"CNTR","room_index":0,"parent":"SRV-01","stack_index":0},
-    {"id":"CNTR-SEC","element_type":"DEVICE","device_type":"CNTR","room_index":0,"parent":"SRV-01","stack_index":1},
-    {"id":"ENC-DELTAV_RACK_WORKSTATION-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":2},
-    {"id":"ENC-DELTAV_SMART_SWITCH-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":3},
-    {"id":"ENC-19_INCH_SLIDING_SCREEN-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":4},
-    {"id":"ENC-APC_UPS-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":5},
-    {"id":"ENC-HIRSCHMANN_INDUSTRIAL_SWITCH-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":0,"parent":"SRV-01","stack_index":6},
-    {"id":"IO-01","element_type":"CABINET","cabinet_type":"IO","room_type":"OTHER","room_index":0,"row":0,"col":1,"col_span":3},
-    {"id":"CIOC-01","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":0},
-    {"id":"CHARM-BP-01","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":1},
-    {"id":"CHARM-BP-02","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":2},
-    {"id":"CHARM-BP-03","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":3},
-    {"id":"CHARM-BP-04","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":4},
-    {"id":"CHARM-BP-05","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":5},
-    {"id":"CHARM-BP-06","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":6},
-    {"id":"CHARM-BP-07","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":7},
-    {"id":"CHARM-BP-08","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":0,"stack_index":8},
-    {"id":"CIOC-02","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":0},
-    {"id":"CHARM-BP-09","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":1},
-    {"id":"CHARM-BP-10","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":2},
-    {"id":"CHARM-BP-11","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":3},
-    {"id":"CHARM-BP-12","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":4},
-    {"id":"CHARM-BP-13","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":5},
-    {"id":"CHARM-BP-14","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":6},
-    {"id":"CHARM-BP-15","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":7},
-    {"id":"CHARM-BP-16","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":1,"stack_index":8},
-    {"id":"CIOC-03","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":0},
-    {"id":"CHARM-BP-17","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":1},
-    {"id":"CHARM-BP-18","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":2},
-    {"id":"CHARM-BP-19","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":3},
-    {"id":"CHARM-BP-20","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":4},
-    {"id":"CHARM-BP-21","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":5},
-    {"id":"CHARM-BP-22","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":6},
-    {"id":"CHARM-BP-23","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":7},
-    {"id":"CHARM-BP-24","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-01","tower_col":2,"stack_index":8},
-    {"id":"IO-02","element_type":"CABINET","cabinet_type":"IO","room_type":"OTHER","room_index":0,"row":0,"col":4,"col_span":1},
-    {"id":"CIOC-04","element_type":"DEVICE","device_type":"CIOC","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":0},
-    {"id":"CHARM-BP-25","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":1},
-    {"id":"CHARM-BP-26","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":2},
-    {"id":"CHARM-BP-27","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":3},
-    {"id":"CHARM-BP-28","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":4},
-    {"id":"CHARM-BP-29","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":5},
-    {"id":"CHARM-BP-30","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":6},
-    {"id":"CHARM-BP-31","element_type":"DEVICE","device_type":"CHARM","room_index":0,"parent":"IO-02","tower_col":0,"stack_index":7},
-    {"id":"FOPP-OTHER-01","element_type":"FOPP","device_type":"FOPP","room_type":"OTHER","room_index":0,"row":1,"col":4},
-    {"id":"WD-01","element_type":"CABINET","cabinet_type":"WORKDESK","room_type":"OPERATOR","room_index":1,"row":0,"col":0,"col_span":1},
-    {"id":"WD-DELTAV_FULL-SIZED_TOWER_WORKSTATION-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":1,"parent":"WD-01","stack_index":0},
-    {"id":"WD-24-INCH_MONITOR-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":1,"parent":"WD-01","stack_index":1},
-    {"id":"WD-PRINTER-01","element_type":"DEVICE","device_type":"ENC_COMP","room_index":1,"parent":"WD-01","stack_index":2},
-    {"id":"FOPP-OPR-01","element_type":"FOPP","device_type":"FOPP","room_type":"OPERATOR","room_index":1,"row":1,"col":0}
-  ],
-  "connections": [
-    {"from":"FOPP-OTHER-01","to":"SRV-01","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
-    {"from":"FOPP-OTHER-01","to":"IO-01","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
-    {"from":"FOPP-OTHER-01","to":"IO-02","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
-    {"from":"FOPP-OPR-01","to":"WD-01","link_type":"FOPP_TO_CABINET","scope":"INTRA_ROOM"},
-    {"from":"FOPP-OTHER-01","to":"FOPP-OPR-01","link_type":"INTER_ROOM_FIBER","scope":"INTER_ROOM"}
-  ]
-}
-
-if __name__ == "__main__":
-    renderer = PptRenderer()
-    renderer.render(LAYOUT_JSON, "deltav_architecture.pptx")
+# if __name__ == "__main__":
+#     renderer = PptRenderer()
+#     renderer.render(LAYOUT_JSON, "deltav_architecture.pptx")
