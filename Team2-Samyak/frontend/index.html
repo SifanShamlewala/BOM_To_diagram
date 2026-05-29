@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>DeltaV Architecture Editor</title>
+    
+    <!-- interact.js for drag & drop -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.19/dist/interact.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css"><style style="display:none">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-white {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 24px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .toolbar-group {
+            display: flex;
+            gap: 8px;
+            padding-right: 16px;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .toolbar-group:last-child {
+            border-right: none;
+        }
+
+        .toolbar .btn {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+        }
+
+        /* Main layout */
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1rem;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .component-item {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .component-item:hover {
+            background: #f3f4f6;
+            border-color: #667eea;
+        }
+
+        .component-item.selected {
+            background: #eef2ff;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .component-label {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .component-type {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Canvas */
+        .canvas-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .canvas {
+            flex: 1;
+            position: relative;
+            overflow: auto;
+            background: #ffffff;
+        }
+
+        .canvas-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3000px;
+            height: 2000px;
+            background-image: 
+                linear-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,.02) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Shapes */
+        .shape {
+            position: absolute;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: move;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .shape:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .shape.selected {
+            border-width: 3px !important;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .shape-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1f2937;
+        }
+
+        .shape-type {
+            font-size: 0.7rem;
+            color: #6b7280;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Shape types */
+        .shape-room {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border: 3px solid #9ca3af;
+            min-width: 600px;
+            min-height: 700px;
+        }
+
+        .shape-room .shape-label {
+            font-size: 1.2rem;
+            color: #374151;
+        }
+
+        .shape-cabinet {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+            width: 180px;
+            min-height: 300px;
+        }
+
+        .shape-cabinet.io {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-color: #10b981;
+        }
+
+        .shape-cabinet.workdesk {
+            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+            border-color: #f59e0b;
+        }
+
+        .shape-controller {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border: 2px solid #6366f1;
+            width: 160px;
+            height: 50px;
+        }
+
+        .shape-device {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border: 2px solid #ec4899;
+            width: 160px;
+            height: 45px;
+        }
+
+        .shape-baseplate {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 1.5px solid #059669;
+            width: 140px;
+            height: 30px;
+        }
+
+        .shape-baseplate .shape-label {
+            font-size: 0.75rem;
+        }
+
+        .shape-tower {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px dashed #10b981;
+            width: 160px;
+            min-height: 400px;
+        }
+
+        .shape-fopp {
+            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+            border: 2px solid #ea580c;
+            width: 100px;
+            height: 70px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.2s;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #1f2937;
+            font-size: 1.4rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        /* Upload overlay */
+        .upload-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .upload-overlay.hidden {
+            display: none;
+        }
+
+        .upload-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .upload-box h2 {
+            margin-bottom: 24px;
+            color: #1f2937;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            padding: 50px 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f8f9ff;
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+        }
+
+        /* Status notification */
+        .status {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            background: #10b981;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 9999;
+        }
+
+        .status.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .status.error {
+            background: #ef4444;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0a0a0;
+        }
+    </style><!--REPLACED-->
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <h1>🎨 DeltaV Architecture Editor</h1>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-white" id="uploadBtn">📤 Upload BOM</button>
+            <button class="btn btn-success" id="exportBtn" disabled>💾 Export PPT</button>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <button class="btn btn-primary" id="addRoomBtn" disabled>
+                ➕ Add Room
+            </button>
+            <button class="btn btn-primary" id="addCabinetBtn" disabled>
+                📦 Add Cabinet
+            </button>
+            <button class="btn btn-primary" id="addControllerBtn" disabled>
+                🎛️ Add Controller
+            </button>
+        </div>
+        <div class="toolbar-group">
+            <button class="btn btn-secondary" id="deleteBtn" disabled>
+                🗑️ Delete
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Components</h3>
+                <p id="componentCount">No components yet</p>
+            </div>
+            <div class="sidebar-content" id="componentList">
+                <p style="color: #9ca3af; text-align: center; padding: 40px 20px;">
+                    Upload a BOM file to get started
+                </p>
+            </div>
+        </div>
+
+        <!-- Canvas -->
+        <div class="canvas-wrapper">
+            <div class="canvas" id="canvas">
+                <div class="canvas-grid"></div>
+                <div id="shapesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Overlay -->
+    <div class="upload-overlay" id="uploadOverlay">
+        <div class="upload-box">
+            <h2>Upload BOM Excel File</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📊</div>
+                <div style="font-size: 1.1rem; margin-bottom: 8px;">Click or drag & drop</div>
+                <div style="color: #9ca3af; font-size: 0.9rem;">Excel files (.xlsx, .xls)</div>
+            </div>
+            <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;">
+        </div>
+    </div>
+
+    <!-- Add Room Modal -->
+    <div class="modal-overlay hidden" id="addRoomModal">
+        <div class="modal">
+            <h2>Add New Room</h2>
+            <div class="form-group">
+                <label>Room Name</label>
+                <input type="text" id="roomName" placeholder="e.g., FIELD, CONTROL, CUSTOM" />
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelRoomBtn">Cancel</button>
+                <button class="btn btn-success" id="confirmRoomBtn">Add Room</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Cabinet Modal -->
+    <div class="modal-overlay hidden" id="addCabinetModal">
+        <div class="modal">
+            <h2>Add New Cabinet</h2>
+            <div class="form-group">
+                <label>Cabinet Name</label>
+                <input type="text" id="cabinetName" placeholder="e.g., SRV-03, IO-04" />
+            </div>
+            <div class="form-group">
+                <label>Cabinet Type</label>
+                <select id="cabinetType">
+                    <option value="server">Server Cabinet</option>
+                    <option value="io">I/O Cabinet</option>
+                    <option value="workdesk">Workdesk</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelCabinetBtn">Cancel</button>
+                <button class="btn btn-success" id="confirmCabinetBtn">Add Cabinet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Controller Modal -->
+    <div class="modal-overlay hidden" id="addControllerModal">
+        <div class="modal">
+            <h2>Add New Controller</h2>
+            <div class="form-group">
+                <label>Controller Name</label>
+                <input type="text" id="controllerName" placeholder="e.g., CNTR-03, PRIMARY" />
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelControllerBtn">Cancel</button>
+                <button class="btn btn-success" id="confirmControllerBtn">Add Controller</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="status" id="status"></div>
+
+    <script src="layout-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
